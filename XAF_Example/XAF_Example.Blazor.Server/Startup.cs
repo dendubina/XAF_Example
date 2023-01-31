@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using XAF_Example.Blazor.Server.Services;
 using XAF_Example.Module;
 using XAF_Example.Module.Database;
-using DevExpress.ExpressApp.Blazor.ApplicationBuilder;
 
 namespace XAF_Example.Blazor.Server;
 
@@ -35,8 +34,8 @@ public class Startup
         {
             builder.UseApplication<XAF_ExampleBlazorApplication>();
 
-           // builder.Modules.AddConditionalAppearance();
             builder.Modules
+                .AddConditionalAppearance()
                 .AddValidation(options =>
                 {
                     options.AllowValidationDetailsAccess = false;

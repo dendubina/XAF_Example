@@ -12,22 +12,23 @@ internal static class DataInitializer
 
     static DataInitializer()
     {
+        const string locale = "ru";
         Randomizer.Seed = new Random(35566);
 
-        Employees = new Faker<Employee>("ru")
+        Employees = new Faker<Employee>(locale)
             .RuleFor(x => x.ID, f => f.Random.Guid())
             .RuleFor(x => x.FirstName, f => f.Person.FirstName)
             .RuleFor(x => x.LastName, f => f.Person.LastName)
             .RuleFor(x => x.Age, f => f.Random.Int(1, 65))
             .RuleFor(x => x.Email, f => f.Person.Email)
             .RuleFor(x => x.Birthday, f => f.Date.Past())
-            .Generate(20);
+            .Generate(50);
 
-        Tasks = new Faker<Task>("ru")
+        Tasks = new Faker<Task>(locale)
             .RuleFor(x => x.ID, f => f.Random.Guid())
             .RuleFor(x => x.Description, f => f.Lorem.Sentence())
             .RuleFor(x => x.Status, f => f.PickRandom<TaskStatus>())
             .RuleFor(x => x.AssignedToId, f => f.PickRandom(Employees.Select(x => x.ID)))
-            .Generate(100);
+            .Generate(Employees.Count() * 3);
     }
 }

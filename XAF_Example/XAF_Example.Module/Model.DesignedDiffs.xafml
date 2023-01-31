@@ -2,6 +2,11 @@
 <Application Title="XAF_Example">
   <BOModel>
     <Class Name="XAF_Example.Module.BusinessObjects.Task" DefaultDetailViewImage="">
+      <AppearanceRules>
+        <AppearanceRule Id="CompletedStatus" Criteria="Status = 2" TargetItems="Status" BackColor="" FontColor="0, 192, 0" IsNewNode="True" />
+        <AppearanceRule Id="InProgressStatus" Criteria="Status = 1" TargetItems="Status" FontColor="192, 192, 0" IsNewNode="True" />
+        <AppearanceRule Id="NotStartedStatus" TargetItems="Status" BackColor="192, 0, 0" Criteria="Status = 0" IsNewNode="True" />
+      </AppearanceRules>
       <OwnMembers>
         <Member Name="Description" RowCount="3" />
       </OwnMembers>
