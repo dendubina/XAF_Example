@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using XAF_Example.Blazor.Server.Services;
 using XAF_Example.Module;
-using XAF_Example.Module.BusinessObjects;
+using XAF_Example.Module.Database;
+using DevExpress.ExpressApp.Blazor.ApplicationBuilder;
 
 namespace XAF_Example.Blazor.Server;
 
@@ -34,6 +35,7 @@ public class Startup
         {
             builder.UseApplication<XAF_ExampleBlazorApplication>();
 
+           // builder.Modules.AddConditionalAppearance();
             builder.Modules
                 .AddValidation(options =>
                 {
@@ -44,8 +46,9 @@ public class Startup
 
             builder.ObjectSpaceProviders
                 .AddEFCore()
-                .WithDbContext<XAF_ExampleEFCoreDbContext>((serviceProvider, options) =>
+                .WithDbContext<AppDbContext>((serviceProvider, options) =>
                 {
+                    //options.UseSqlServer(Configuration.GetConnectionString("ConnectionString"));
                     options.UseInMemoryDatabase("InMemory");
                    
                     options.UseChangeTrackingProxies();

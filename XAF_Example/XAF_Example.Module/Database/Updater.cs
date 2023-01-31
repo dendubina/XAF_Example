@@ -1,7 +1,7 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
 
-namespace XAF_Example.Module.DatabaseUpdate;
+namespace XAF_Example.Module.Database;
 
 // For more typical usage scenarios, be sure to check out https://docs.devexpress.com/eXpressAppFramework/DevExpress.ExpressApp.Updating.ModuleUpdater
 public class Updater : ModuleUpdater

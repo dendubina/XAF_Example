@@ -1,5 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
+using Updater = XAF_Example.Module.Database.Updater;
 
 namespace XAF_Example.Module;
 
@@ -15,7 +16,7 @@ public sealed class XAF_ExampleModule : ModuleBase
 
     public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB)
     {
-        ModuleUpdater updater = new DatabaseUpdate.Updater(objectSpace, versionFromDB);
+        ModuleUpdater updater = new Updater(objectSpace, versionFromDB);
         return new ModuleUpdater[] { updater };
     }
 

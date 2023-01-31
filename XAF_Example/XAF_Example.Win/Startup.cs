@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.Win;
 using Microsoft.EntityFrameworkCore;
 using DevExpress.ExpressApp.Design;
 using XAF_Example.Module;
-using XAF_Example.Module.BusinessObjects;
+using XAF_Example.Module.Database;
 
 namespace XAF_Example.Win;
 
@@ -24,7 +24,7 @@ public class ApplicationBuilder : IDesignTimeApplicationFactory
                         .Add<XAF_ExampleWinModule>();
         builder.ObjectSpaceProviders
             .AddEFCore()
-            .WithDbContext<XAF_ExampleEFCoreDbContext>((application, options) =>
+            .WithDbContext<AppDbContext>((application, options) =>
             {
                 options.UseInMemoryDatabase("InMemory");
 

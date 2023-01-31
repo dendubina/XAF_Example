@@ -5,11 +5,13 @@ using Microsoft.AspNetCore.OData;
 using DevExpress.ExpressApp.Core;
 using XAF_Example.WebApi.Core;
 using DevExpress.ExpressApp.AspNetCore.WebApi;
-using XAF_Example.Module.BusinessObjects;
+using XAF_Example.Module.Database;
+using Task = XAF_Example.Module.BusinessObjects.Task;
 
 namespace XAF_Example.WebApi;
 
-public class Startup {
+public class Startup
+{
 
     public Startup(IConfiguration configuration)
     {
@@ -20,37 +22,42 @@ public class Startup {
 
     // This method gets called by the runtime. Use this method to add services to the container.
     // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-    public void ConfigureServices(IServiceCollection services) {
+    public void ConfigureServices(IServiceCollection services)
+    {
 
         services
             .AddScoped<IObjectSpaceProviderFactory, ObjectSpaceProviderFactory>()
             .AddSingleton<IWebApiApplicationSetup, WebApiApplicationSetup>();
 
-        services.AddDbContextFactory<XAF_ExampleEFCoreDbContext>((serviceProvider, options) => {
+        services.AddDbContextFactory<AppDbContext>((serviceProvider, options) =>
+        {
             options.UseInMemoryDatabase("InMemory");
-            
+
             options.UseChangeTrackingProxies();
             options.UseObjectSpaceLinkProxies();
             options.UseLazyLoadingProxies();
         }, ServiceLifetime.Scoped);
 
         services
-            .AddXafWebApi(Configuration, options => {
-                // Make your business objects available in the Web API and generate the GET, POST, PUT, and DELETE HTTP methods for it.
-                // options.BusinessObject<YourBusinessObject>();
+            .AddXafWebApi(Configuration, options =>
+            {
+                options.BusinessObject<Task>();
             });
 
         services
             .AddControllers()
-            .AddOData((options, serviceProvider) => {
+            .AddOData((options, serviceProvider) =>
+            {
                 options
                     .AddRouteComponents("api/odata", new EdmModelBuilder(serviceProvider).GetEdmModel())
                     .EnableQueryFeatures(100);
             });
 
-        services.AddSwaggerGen(c => {
+        services.AddSwaggerGen(c =>
+        {
             c.EnableAnnotations();
-            c.SwaggerDoc("v1", new OpenApiInfo {
+            c.SwaggerDoc("v1", new OpenApiInfo
+            {
                 Title = "XAF_Example API",
                 Version = "v1",
                 Description = @"Use AddXafWebApi(options) in the XAF_Example.WebApi\Startup.cs file to make Business Objects available in the Web API."
@@ -59,12 +66,14 @@ public class Startup {
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
-        if(env.IsDevelopment())
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
             app.UseSwagger();
-            app.UseSwaggerUI(c => {
+            app.UseSwaggerUI(c =>
+            {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "XAF_Example WebApi v1");
             });
         }
@@ -80,7 +89,8 @@ public class Startup {
         app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
-        app.UseEndpoints(endpoints => {
+        app.UseEndpoints(endpoints =>
+        {
             endpoints.MapControllers();
         });
     }

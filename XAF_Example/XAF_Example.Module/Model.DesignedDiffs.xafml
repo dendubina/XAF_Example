@@ -1,8 +1,19 @@
-﻿<?xml version="1.0" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="XAF_Example">
+  <BOModel>
+    <Class Name="XAF_Example.Module.BusinessObjects.Task" DefaultDetailViewImage="">
+      <OwnMembers>
+        <Member Name="Description" RowCount="3" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
   <Options>
     <LayoutManagerOptions RequiredFieldMark="*" />
   </Options>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="22.2.4.0" IsNewNode="True" />
+  </SchemaModules>
   <Views>
+    <ListView Id="Employee_Tasks_ListView" AllowLink="False" AllowUnlink="False" />
   </Views>
 </Application>
